@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Habit - Deadline</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#16261d",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for calendar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        /* Mobile safe area spacing */
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-white antialiased selection:bg-primary selection:text-black">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden">
+<!-- Header -->
+<header class="flex items-center px-4 pt-6 pb-2 justify-between">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-gray-900 dark:text-white" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">Step 3 of 3</h2>
+<div class="size-10"></div> <!-- Spacer for visual balance -->
+</header>
+<!-- Progress Bar -->
+<div class="px-6 mb-6">
+<div class="h-1 w-full bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full rounded-full"></div>
+</div>
+</div>
+<main class="flex-1 overflow-y-auto px-6 pb-32">
+<!-- Headline -->
+<div class="mb-8">
+<h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white mb-2">When is the deadline?</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base">Set a strict timeline to earn maximum points.</p>
+</div>
+<!-- Segmented Control -->
+<div class="mb-8 p-1 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-white/5 flex shadow-sm">
+<button class="flex-1 py-2.5 px-4 rounded-lg bg-gray-900 dark:bg-primary text-white dark:text-black font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                    Specific Date
+                </button>
+<button class="flex-1 py-2.5 px-4 rounded-lg text-gray-500 dark:text-gray-400 font-medium text-sm hover:text-gray-900 dark:hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">timelapse</span>
+                    Duration
+                </button>
+</div>
+<!-- Calendar Component -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-white/5 mb-6">
+<!-- Month Navigation -->
+<div class="flex items-center justify-between mb-4 px-2">
+<button class="p-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-gray-400">chevron_left</span>
+</button>
+<span class="text-base font-bold text-gray-900 dark:text-white">October 2023</span>
+<button class="p-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors">
+<span class="material-symbols-outlined text-gray-400">chevron_right</span>
+</button>
+</div>
+<!-- Calendar Grid -->
+<div class="grid grid-cols-7 gap-y-2 mb-2">
+<!-- Days Header -->
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">S</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">M</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">T</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">W</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">T</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">F</div>
+<div class="text-center text-xs font-semibold text-gray-400 dark:text-gray-500 py-2">S</div>
+<!-- Days -->
+<!-- Previous month days -->
+<div class="h-10 w-10 mx-auto flex items-center justify-center text-sm text-gray-300 dark:text-gray-700">28</div>
+<div class="h-10 w-10 mx-auto flex items-center justify-center text-sm text-gray-300 dark:text-gray-700">29</div>
+<div class="h-10 w-10 mx-auto flex items-center justify-center text-sm text-gray-300 dark:text-gray-700">30</div>
+<!-- Current month -->
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">1</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">2</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">3</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">4</button>
+<!-- Selected Day -->
+<button class="h-10 w-10 mx-auto flex flex-col items-center justify-center rounded-full bg-primary text-black shadow-lg shadow-primary/20 text-sm font-bold relative">
+                        5
+                    </button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">6</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">7</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">8</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">9</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">10</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">11</button>
+<button class="h-10 w-10 mx-auto flex items-center justify-center rounded-full text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">12</button>
+</div>
+<div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/10 flex items-center justify-center gap-2">
+<span class="text-sm text-gray-500 dark:text-gray-400">Selected deadline:</span>
+<span class="text-sm font-bold text-gray-900 dark:text-white">Oct 5, 2023</span>
+</div>
+</div>
+<!-- Warning Banner -->
+<div class="flex items-start gap-3 p-4 rounded-xl bg-orange-500/10 dark:bg-orange-500/5 border border-orange-500/20">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 shrink-0" style="font-size: 20px;">warning</span>
+<div class="space-y-1">
+<p class="text-sm font-semibold text-orange-700 dark:text-orange-400">Penalty Warning</p>
+<p class="text-xs text-orange-600/80 dark:text-orange-400/70 leading-relaxed">
+                        Failing to complete by the deadline will result in a <span class="font-bold">50 point penalty</span>. Stay committed!
+                    </p>
+</div>
+</div>
+</main>
+<!-- Footer Actions -->
+<div class="absolute bottom-0 left-0 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-t border-gray-200 dark:border-white/5 p-6 safe-bottom">
+<button class="w-full h-14 bg-primary hover:bg-green-400 active:scale-[0.98] transition-all rounded-xl text-background-dark text-lg font-bold shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+                Create Habit
+                <span class="material-symbols-outlined">check</span>
+</button>
+</div>
+</div>
+</body></html>

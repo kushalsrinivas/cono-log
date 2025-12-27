@@ -1,0 +1,28 @@
+export const AppColors = {
+  primary: '#2bee6c',
+  primaryDark: '#25e665',
+  backgroundDark: '#102216',
+  cardDark: '#1A2E22',
+  surfaceDark: '#1c2e22',
+  backgroundLight: '#f6f8f6',
+  textLight: '#9db9a6',
+  textMuted: '#5a7061',
+  white: '#ffffff',
+  black: '#000000',
+  red: '#ef4444',
+  orange: '#f97316',
+  amber: '#f59e0b',
+  gray: {
+    50: '#f9fafb',
+    100: '#f3f4f6',
+    200: '#e5e7eb',
+    300: '#d1d5db',
+    400: '#9ca3af',
+    500: '#6b7280',
+    600: '#4b5563',
+    700: '#374151',
+    800: '#1f2937',
+    900: '#111827',
+  },
+};
+

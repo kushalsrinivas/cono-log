@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Splash Screen - Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen w-full flex flex-col items-center justify-center relative overflow-hidden selection:bg-primary/30">
+<!-- Decorative Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+<!-- Subtle radial gradient to give depth to the dark background without being noisy -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
+</div>
+<!-- Main Content -->
+<main class="relative z-10 flex flex-col items-center gap-8 animate-fade-in">
+<!-- App Title -->
+<!-- Using HeadlineText component inspiration but adapted for splash screen centering -->
+<h1 class="text-gray-900 dark:text-white tracking-tight text-5xl font-bold leading-tight px-4 text-center">
+            Focus
+        </h1>
+<!-- Loading Indicator -->
+<!-- Minimalist spinner using Tailwind utilities -->
+<div class="relative w-8 h-8">
+<svg class="animate-spin text-primary w-full h-full" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+</svg>
+</div>
+</main>
+<!-- Bottom Status Text (Optional but adds to "offline-only" vibe) -->
+<div class="absolute bottom-12 z-10">
+<p class="text-gray-400/60 dark:text-white/40 text-xs font-medium tracking-widest uppercase">
+            Offline Mode
+        </p>
+</div>
+</body></html>

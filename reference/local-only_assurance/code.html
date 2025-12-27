@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Local-Only Assurance</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>/* Custom checkbox style to match the request without external SVGs if possible, 
+           but using the data-uri approach for the tick is clean */
+.custom-checkbox:checked {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAkPtwO9GpgtF2pYEdMtbha46CXg09Yzzq6gk9wTR2Fdp5ZLj1t1yRr8oQuTnteIM0QvbjW9DnjuCAUiehaQwdVshvcPq-jbJ_NvGjtm7VCtRSNzmRY6SNFWHIH93Dxe5x3JbfNHhsCnHwyrPKu2nIRh63BRGjCJ_dUBxx_SZerYGOsFq5706qGAqqzF1-JbXHGUMnUO25AFu0kAjyz1hPGC8QeZuETuBs3SlEDXxXuvXmRHOVpWnzy8VgepC-PkduSKRztnJi1cMCf);
+    background-color: #2bee6c;
+    border-color: #2bee6c
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col items-center justify-between px-6 pt-12 pb-8 max-w-md mx-auto w-full">
+<!-- Top Section: Hero & Header -->
+<div class="flex flex-col items-center w-full mt-4">
+<!-- Hero Icon -->
+<div class="relative mb-8 group">
+<div class="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-150 opacity-20 group-hover:opacity-30 transition-opacity"></div>
+<div class="relative h-28 w-28 rounded-full bg-background-light dark:bg-[#1a2e20] border-2 border-primary/20 flex items-center justify-center shadow-2xl shadow-black/50">
+<span class="material-symbols-outlined text-6xl text-primary" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">shield_lock</span>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="text-slate-900 dark:text-white tracking-tight text-[32px] font-bold leading-tight text-center mb-3">
+                    Total Privacy.
+                </h1>
+<!-- Body Text -->
+<p class="text-slate-600 dark:text-slate-400 text-base font-normal leading-relaxed text-center max-w-[280px]">
+                    We built this app to track habits, not you. Your data is yours.
+                </p>
+</div>
+<!-- Middle Section: Trust Bullets -->
+<!-- Adapting the list concept but making it static (informative) rather than interactive checkboxes -->
+<div class="w-full mt-8 mb-auto">
+<div class="flex flex-col gap-4 bg-white/50 dark:bg-white/5 p-6 rounded-2xl border border-slate-200 dark:border-white/5 backdrop-blur-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl flex-shrink-0">check_circle</span>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium">All data stays on this device</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl flex-shrink-0">no_accounts</span>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium">No account required</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl flex-shrink-0">cloud_off</span>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium">No cloud uploads</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl flex-shrink-0">do_not_disturb_on</span>
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium">No third-party tracking</p>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Actions -->
+<div class="w-full flex flex-col gap-5 mt-8">
+<!-- "Don't show again" Checkbox -->
+<label class="flex items-center justify-center gap-x-3 cursor-pointer group select-none">
+<input class="custom-checkbox appearance-none h-5 w-5 rounded border-2 border-slate-300 dark:border-[#3b5443] bg-transparent focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-background-dark focus:outline-none transition-all duration-200 ease-out" type="checkbox"/>
+<span class="text-slate-600 dark:text-slate-400 text-sm font-normal group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">
+                        Don't show this again
+                    </span>
+</label>
+<!-- Start Button -->
+<button class="w-full h-14 bg-primary text-background-dark text-lg font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-[#25d360] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group">
+<span>Start Tracking</span>
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Decorative bottom gradient -->
+<div class="fixed bottom-0 left-0 right-0 h-1 bg-[#102216]"></div>
+</div>
+</body></html>

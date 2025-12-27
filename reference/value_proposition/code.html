@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Value Proposition</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#162b1e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111813] dark:text-white overflow-hidden selection:bg-primary selection:text-background-dark">
+<div class="relative flex h-screen w-full flex-col justify-between overflow-hidden">
+<!-- Header / Nav area placeholder (Minimalist) -->
+<div class="flex items-center justify-between p-4 h-14">
+<!-- Empty for extreme minimalism or could hold a subtle back button if needed -->
+</div>
+<!-- Main Content Area: Centered Value Prop -->
+<div class="flex-1 flex flex-col items-center justify-center px-6 relative z-10">
+<!-- Icon/Graphic Placeholder using Material Symbol for abstract points/connection -->
+<div class="mb-10 p-6 rounded-full bg-surface-dark/50 dark:bg-surface-dark border border-[#3b5443] flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-5xl">hub</span>
+</div>
+<div class="flex max-w-[320px] flex-col items-center gap-6 text-center">
+<h1 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+                    Build habits.
+                </h1>
+<div class="space-y-4 text-base md:text-lg font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
+<p>
+                        Miss goals <span class="text-gray-400 mx-1">→</span> <span class="text-red-400 dark:text-red-400/90 decoration-red-400/30 underline decoration-2 underline-offset-4">lose points</span>.
+                    </p>
+<p>
+                        Make progress <span class="text-gray-400 mx-1">→</span> <span class="text-primary decoration-primary/30 underline decoration-2 underline-offset-4">gain points</span>.
+                    </p>
+</div>
+</div>
+<!-- Background subtle pattern -->
+<div class="absolute inset-0 -z-10 opacity-20 pointer-events-none" style="background-image: radial-gradient(#2bee6c 1px, transparent 1px); background-size: 32px 32px;">
+</div>
+<!-- Gradient overlay to fade bottom/top -->
+<div class="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-background-light dark:to-background-dark pointer-events-none"></div>
+<div class="absolute inset-0 -z-10 bg-gradient-to-t from-transparent via-transparent to-background-light dark:to-background-dark pointer-events-none"></div>
+</div>
+<!-- Bottom Action Area -->
+<div class="w-full p-6 pb-8 md:pb-10">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 bg-primary text-background-dark text-lg font-bold leading-normal tracking-wide shadow-[0_0_20px_rgba(43,238,108,0.3)] hover:bg-[#1fd65f] transition-colors duration-200 active:scale-[0.98]">
+<span class="truncate">Continue</span>
+</button>
+<p class="mt-4 text-xs text-center text-gray-500 dark:text-gray-500">Offline-only. Your data stays on your device.</p>
+</div>
+</div>
+</body></html>
