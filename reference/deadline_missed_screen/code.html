@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deadline Missed</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2126",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#3c4753",
+                        "text-primary-light": "#111827",
+                        "text-primary-dark": "#ffffff",
+                        "text-secondary-light": "#6b7280",
+                        "text-secondary-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark antialiased selection:bg-primary selection:text-white">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden transition-colors duration-300">
+<!-- Top App Bar -->
+<header class="flex items-center justify-between p-4 pb-2 z-10">
+<div class="text-text-primary-light dark:text-text-primary-dark flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</div>
+<h2 class="text-text-primary-light dark:text-text-primary-dark text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
+                Status Update
+            </h2>
+</header>
+<!-- Main Content Area: Centered and Spacious -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 py-8 gap-8 w-full max-w-lg mx-auto">
+<!-- Hero Icon -->
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/20 dark:bg-primary/10 rounded-full blur-xl scale-150"></div>
+<div class="relative flex items-center justify-center size-24 rounded-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-size: 48px;">hourglass_disabled</span>
+</div>
+</div>
+<!-- Headline & Description -->
+<div class="flex flex-col gap-3 text-center items-center">
+<h1 class="text-text-primary-light dark:text-text-primary-dark tracking-tight text-3xl font-bold leading-tight">
+                    Deadline Missed
+                </h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal leading-relaxed max-w-[320px]">
+                    You didn't mark <span class="text-text-primary-light dark:text-text-primary-dark font-medium">Drink 2L Water</span> as complete in time.
+                </p>
+</div>
+<!-- Status & Points Cards -->
+<div class="flex flex-col w-full gap-4 items-center">
+<!-- Status Card (Simplified for minimalism) -->
+<div class="flex items-center gap-3 px-4 py-2 rounded-full border border-border-light dark:border-border-dark bg-surface-light/50 dark:bg-surface-dark/50">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark" style="font-size: 20px;">history</span>
+<span class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider">Status: Expired</span>
+</div>
+<!-- Points Chip -->
+<div class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 shadow-sm">
+<span class="material-symbols-outlined text-orange-500/80 dark:text-orange-400" style="font-size: 20px;">warning</span>
+<p class="text-text-primary-light dark:text-text-primary-dark text-sm font-mono font-medium leading-normal">
+                        −10 Points
+                    </p>
+</div>
+</div>
+</main>
+<!-- Footer Actions -->
+<footer class="w-full max-w-lg mx-auto p-6 pb-8 flex flex-col gap-3 mt-auto">
+<!-- Primary Action -->
+<button class="group flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/20">
+<span class="text-white text-base font-bold leading-normal tracking-[0.015em] flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">restart_alt</span>
+                    Restart with new deadline
+                </span>
+</button>
+<!-- Secondary Action -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-transparent hover:bg-black/5 dark:hover:bg-white/5 active:scale-[0.98] transition-all duration-200">
+<span class="truncate text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium leading-normal tracking-[0.015em] flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">archive</span>
+                    Archive this habit
+                </span>
+</button>
+</footer>
+<!-- Bottom Spacer for mobile safe areas if needed -->
+<div class="h-4 w-full"></div>
+</div>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stats / Progress Screen</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#1A2E22",
+                        "muted-green": "#3b5443",
+                        "text-secondary": "#9db9a6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar hide for cleaner look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-gray-900 dark:text-white selection:bg-primary selection:text-black">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto border-x border-gray-200 dark:border-gray-800 shadow-2xl">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between p-6 pb-2 sticky top-0 z-50 backdrop-blur-md bg-background-light/90 dark:bg-background-dark/90">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-400">arrow_back</span>
+</button>
+<h2 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Progress</h2>
+</header>
+<main class="flex-1 flex flex-col items-center px-6 pt-8 pb-20">
+<!-- HeadlineText (Hero Score) -->
+<div class="flex flex-col items-center justify-center w-full mb-2 animate-fade-in-up">
+<h1 class="text-primary tracking-tighter text-[64px] font-extrabold leading-none text-center drop-shadow-[0_0_15px_rgba(43,238,108,0.3)]">
+                    +450
+                </h1>
+<p class="text-text-secondary text-sm font-medium tracking-wide uppercase pt-2">Total Score</p>
+</div>
+<!-- EmptyState / Weekly Summary Pill -->
+<div class="w-full max-w-[320px] mt-8 mb-10">
+<div class="flex flex-col items-center gap-3 rounded-xl border border-dashed border-muted-green/50 bg-surface-dark/30 px-6 py-4 backdrop-blur-sm">
+<div class="flex flex-col items-center text-center gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-xl">trending_up</span>
+<p class="text-white text-sm font-bold leading-tight">Momentum</p>
+</div>
+<p class="text-gray-400 text-xs font-normal leading-relaxed">
+                            You kept moving forward this week. Up 12% from last week.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="w-full grid grid-cols-2 gap-4 mb-8">
+<!-- Completed Habits -->
+<div class="flex flex-col gap-3 rounded-2xl p-5 bg-surface-dark border border-white/5 hover:border-primary/30 transition-colors group">
+<div class="flex items-center justify-between">
+<div class="p-2 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+</div>
+</div>
+<div>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">42</p>
+<p class="text-text-secondary text-xs font-medium mt-1">Habits Completed</p>
+</div>
+</div>
+<!-- Missed Habits -->
+<div class="flex flex-col gap-3 rounded-2xl p-5 bg-surface-dark border border-white/5 hover:border-white/10 transition-colors">
+<div class="flex items-center justify-between">
+<div class="p-2 rounded-full bg-white/5">
+<span class="material-symbols-outlined text-gray-400 text-xl">cancel</span>
+</div>
+</div>
+<div>
+<p class="text-gray-300 tracking-tight text-3xl font-bold leading-tight">3</p>
+<p class="text-text-secondary text-xs font-medium mt-1">Habits Missed</p>
+</div>
+</div>
+</div>
+<!-- Mini-Heatmap -->
+<div class="w-full flex flex-col gap-3">
+<div class="flex justify-between items-end px-1">
+<p class="text-white font-medium text-sm">Last 7 Days</p>
+<p class="text-text-secondary text-xs">85% Consistency</p>
+</div>
+<div class="flex justify-between items-center gap-2 bg-surface-dark p-4 rounded-xl border border-white/5">
+<!-- Day 1 (Inactive) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-white/10"></div>
+<span class="text-[10px] text-gray-500 font-mono">M</span>
+</div>
+<!-- Day 2 (Active) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-primary opacity-60"></div>
+<span class="text-[10px] text-gray-500 font-mono">T</span>
+</div>
+<!-- Day 3 (Active) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-primary"></div>
+<span class="text-[10px] text-gray-500 font-mono">W</span>
+</div>
+<!-- Day 4 (Active) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-primary"></div>
+<span class="text-[10px] text-gray-500 font-mono">T</span>
+</div>
+<!-- Day 5 (Inactive) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-white/10"></div>
+<span class="text-[10px] text-gray-500 font-mono">F</span>
+</div>
+<!-- Day 6 (Active) -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="h-8 w-full rounded-md bg-primary"></div>
+<span class="text-[10px] text-gray-500 font-mono">S</span>
+</div>
+<!-- Day 7 (Active - Today) -->
+<div class="flex flex-col items-center gap-2 flex-1 relative">
+<div class="h-8 w-full rounded-md bg-primary shadow-[0_0_10px_rgba(43,238,108,0.4)]"></div>
+<span class="text-[10px] text-white font-bold font-mono">S</span>
+<!-- Indicator dot for today -->
+<div class="absolute -bottom-1 w-1 h-1 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="sticky bottom-0 w-full bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-white/5 px-6 py-4 flex justify-around items-center z-50 safe-area-bottom">
+<button class="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-2xl">calendar_today</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 h-12 bg-primary rounded-full shadow-[0_0_20px_rgba(43,238,108,0.3)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-background-dark text-3xl font-bold">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-2xl fill-1">bar_chart</span>
+</button>
+</nav>
+<!-- Safe area spacer for iOS -->
+<div class="h-6 w-full bg-background-light dark:bg-background-dark"></div>
+</div>
+</body></html>

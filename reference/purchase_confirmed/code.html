@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Purchase Confirmed</title>
+<!-- Material Symbols Link -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+        extend: {
+            colors: {
+            "primary": "#2bee6c",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+            },
+            fontFamily: {
+            "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+        },
+    }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-white">
+<div class="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden p-6 group/design-root">
+<!-- Ambient Background Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px] pointer-events-none"></div>
+<!-- Content Container -->
+<div class="relative z-10 flex w-full max-w-[400px] flex-col items-center">
+<!-- Success Icon Visualization -->
+<div class="mb-6 flex items-center justify-center">
+<div class="relative flex h-24 w-24 items-center justify-center rounded-full bg-background-dark border-2 border-primary/20 shadow-[0_0_40px_-10px_rgba(43,238,108,0.3)]">
+<span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings: 'FILL' 1, 'wght' 600;">lock_open</span>
+<!-- Decorative Elements simulating 'Confetti' -->
+<span class="material-symbols-outlined absolute -top-2 -right-2 text-xl text-primary/80" style="transform: rotate(15deg);">star</span>
+<span class="material-symbols-outlined absolute bottom-0 -left-2 text-lg text-primary/60" style="transform: rotate(-15deg);">stars</span>
+</div>
+</div>
+<!-- Headline Text -->
+<h1 class="text-slate-900 dark:text-white tracking-tight text-[32px] font-bold leading-tight px-4 text-center pb-2 pt-2">
+                Leaderboard Unlocked
+            </h1>
+<!-- Body Text -->
+<p class="text-slate-500 dark:text-gray-300 text-base font-normal leading-relaxed pb-8 pt-2 px-4 text-center max-w-[320px]">
+                Your purchase was successful. You can now compare your progress and compete for the top spot against your friends.
+            </p>
+<!-- Primary Action Button -->
+<div class="flex w-full px-4 py-2">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+<span class="truncate">View Leaderboard</span>
+</button>
+</div>
+<!-- Secondary Action Button -->
+<div class="flex w-full px-4 py-1 justify-center">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-slate-500 dark:text-white/70 hover:text-slate-900 dark:hover:text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Back to Home</span>
+</button>
+</div>
+<!-- Footer Text -->
+<p class="mt-8 text-xs text-slate-400 dark:text-gray-600 text-center">
+                Receipt sent to your Apple ID email.
+            </p>
+</div>
+</div>
+</body></html>

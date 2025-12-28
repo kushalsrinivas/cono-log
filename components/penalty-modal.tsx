@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, SafeAreaView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppColors } from '@/constants/colors';
-import { Button } from '@/components/button';
 
 interface PenaltyModalProps {
   visible: boolean;
@@ -10,6 +9,7 @@ interface PenaltyModalProps {
   pointsLost: number;
   onTryAgain: () => void;
   onArchive: () => void;
+  onClose?: () => void;
 }
 
 export function PenaltyModal({
@@ -18,102 +18,250 @@ export function PenaltyModal({
   pointsLost,
   onTryAgain,
   onArchive,
+  onClose,
 }: PenaltyModalProps) {
+  const bluePrimary = '#197fe6';
+  
   return (
-    <Modal visible={visible} animationType="fade" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="alert-circle" size={80} color={AppColors.amber} />
+    <Modal visible={visible} animationType="fade" transparent={false}>
+      <SafeAreaView style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity 
+            style={styles.backButton} 
+            onPress={onClose}
+          >
+            <MaterialCommunityIcons name="arrow-left" size={24} color={AppColors.white} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Status Update</Text>
+          <View style={{ width: 48 }} />
+        </View>
+
+        {/* Main Content */}
+        <View style={styles.main}>
+          {/* Hero Icon */}
+          <View style={styles.heroIconContainer}>
+            <View style={styles.iconGlow} />
+            <View style={styles.iconCircle}>
+              <MaterialCommunityIcons 
+                name="timer-sand" 
+                size={48} 
+                color={bluePrimary}
+              />
+            </View>
           </View>
 
-          <Text style={styles.title}>Goal missed</Text>
-          
-          <View style={styles.pointsContainer}>
-            <Text style={styles.points}>{pointsLost} points</Text>
+          {/* Headline & Description */}
+          <View style={styles.textContent}>
+            <Text style={styles.title}>Deadline Missed</Text>
+            <Text style={styles.description}>
+              You didn't mark <Text style={styles.habitNameBold}>{habitName}</Text> as complete in time.
+            </Text>
           </View>
 
-          <Text style={styles.habitName}>{habitName}</Text>
-          
-          <Text style={styles.message}>
-            No worries. Progress isn't always linear.
-          </Text>
+          {/* Status & Points */}
+          <View style={styles.statusContainer}>
+            {/* Status Chip */}
+            <View style={styles.statusChip}>
+              <MaterialCommunityIcons name="history" size={20} color={AppColors.textMuted} />
+              <Text style={styles.statusText}>STATUS: EXPIRED</Text>
+            </View>
 
-          <View style={styles.actions}>
-            <Button title="Try again" onPress={onTryAgain} />
-            <TouchableOpacity style={styles.archiveButton} onPress={onArchive}>
-              <Text style={styles.archiveText}>Archive</Text>
-            </TouchableOpacity>
+            {/* Points Chip */}
+            <View style={styles.pointsChip}>
+              <MaterialCommunityIcons name="alert" size={20} color="#f97316" />
+              <Text style={styles.pointsText}>−{pointsLost} Points</Text>
+            </View>
           </View>
         </View>
-      </View>
+
+        {/* Footer Actions */}
+        <View style={styles.footer}>
+          <TouchableOpacity 
+            style={[styles.primaryButton, { backgroundColor: bluePrimary }]} 
+            onPress={onTryAgain}
+            activeOpacity={0.9}
+          >
+            <MaterialCommunityIcons name="restart" size={20} color={AppColors.white} />
+            <Text style={styles.primaryButtonText}>Restart with new deadline</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.secondaryButton} onPress={onArchive} activeOpacity={0.9}>
+            <MaterialCommunityIcons name="archive" size={18} color={AppColors.textMuted} />
+            <Text style={styles.secondaryButtonText}>Archive this habit</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  overlay: {
+  container: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: AppColors.backgroundDark,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  backButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
   },
-  modal: {
-    backgroundColor: AppColors.cardDark,
-    borderRadius: 20,
-    padding: 32,
-    width: '100%',
-    maxWidth: 400,
-    alignItems: 'center',
-  },
-  iconContainer: {
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 28,
+  headerTitle: {
+    fontSize: 18,
     fontWeight: '700',
     color: AppColors.white,
-    marginBottom: 16,
+    letterSpacing: -0.3,
   },
-  pointsContainer: {
-    backgroundColor: AppColors.red + '20',
+  main: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 24,
-    marginBottom: 16,
+    paddingVertical: 32,
+    gap: 32,
   },
-  points: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: AppColors.red,
+  heroIconContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  habitName: {
-    fontSize: 16,
-    color: AppColors.textLight,
-    textAlign: 'center',
-    marginBottom: 12,
+  iconGlow: {
+    position: 'absolute',
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#197fe6',
+    opacity: 0.1,
   },
-  message: {
-    fontSize: 15,
-    color: AppColors.textLight,
-    textAlign: 'center',
-    marginBottom: 32,
-    lineHeight: 22,
+  iconCircle: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: AppColors.surfaceDark,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  actions: {
-    width: '100%',
+  textContent: {
+    alignItems: 'center',
     gap: 12,
   },
-  archiveButton: {
-    height: 48,
+  title: {
+    fontSize: 30,
+    fontWeight: '700',
+    color: AppColors.white,
+    letterSpacing: -0.5,
+  },
+  description: {
+    fontSize: 16,
+    color: AppColors.textMuted,
+    textAlign: 'center',
+    lineHeight: 24,
+    maxWidth: 320,
+  },
+  habitNameBold: {
+    color: AppColors.white,
+    fontWeight: '500',
+  },
+  statusContainer: {
+    alignItems: 'center',
+    gap: 16,
+  },
+  statusChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: AppColors.surfaceDark + '80',
+  },
+  statusText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: AppColors.textMuted,
+    letterSpacing: 2,
+  },
+  pointsChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    height: 40,
+    paddingHorizontal: 16,
+    backgroundColor: AppColors.surfaceDark,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  pointsText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: AppColors.white,
+    fontFamily: 'monospace',
+  },
+  footer: {
+    paddingHorizontal: 24,
+    paddingBottom: 32,
+    gap: 12,
+    maxWidth: 500,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  primaryButton: {
+    width: '100%',
+    height: 56,
+    borderRadius: 12,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 8,
+    shadowColor: '#197fe6',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 8,
   },
-  archiveText: {
+  primaryButtonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: AppColors.textLight,
+    fontWeight: '700',
+    color: AppColors.white,
+    letterSpacing: 0.3,
+  },
+  secondaryButton: {
+    width: '100%',
+    height: 48,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: 'transparent',
+  },
+  secondaryButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: AppColors.textMuted,
+    letterSpacing: 0.3,
   },
 });
 

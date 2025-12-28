@@ -13,6 +13,9 @@ const DEFAULT_APP_STATE: AppState = {
   completedHabitsCount: 0,
   missedHabitsCount: 0,
   penaltyIntensity: 'normal',
+  isPremium: false,
+  dailyActivity: [],
+  lastDeadlineCheck: undefined,
 };
 
 const DEFAULT_ONBOARDING_STATE: OnboardingState = {
@@ -51,7 +54,14 @@ export async function getAppState(): Promise<AppState> {
   try {
     const data = await AsyncStorage.getItem(KEYS.APP_STATE);
     if (data) {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // Ensure new fields exist for backwards compatibility
+      return {
+        ...DEFAULT_APP_STATE,
+        ...parsed,
+        dailyActivity: parsed.dailyActivity || [],
+        lastDeadlineCheck: parsed.lastDeadlineCheck || undefined,
+      };
     }
     return DEFAULT_APP_STATE;
   } catch (error) {

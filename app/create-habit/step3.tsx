@@ -27,6 +27,7 @@ export default function CreateHabitStep3() {
       createdAt: new Date().toISOString(),
       pointsEarned: 0,
       pointsLost: 0,
+      currentStreak: 0,
     };
 
     addHabit(habit);

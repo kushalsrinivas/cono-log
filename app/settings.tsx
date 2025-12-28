@@ -16,7 +16,7 @@ import {
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { state, updatePenaltyIntensity, resetState } = useApp();
+  const { state, updatePenaltyIntensity, resetState, unlockPremium } = useApp();
   const [isLight, setIsLight] = useState(state.penaltyIntensity === "light");
 
   const handleTogglePenalty = () => {
@@ -39,6 +39,20 @@ export default function SettingsScreen() {
             resetState();
             router.replace("/onboarding/splash");
           },
+        },
+      ]
+    );
+  };
+
+  const handleRestorePurchase = () => {
+    // Mock restore for offline app
+    Alert.alert(
+      "Restore Purchase",
+      "Premium access has been restored!",
+      [
+        {
+          text: "OK",
+          onPress: () => unlockPremium(),
         },
       ]
     );
@@ -124,6 +138,62 @@ export default function SettingsScreen() {
               color={AppColors.textLight}
             />
           </TouchableOpacity>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Premium</Text>
+
+          <View style={styles.settingItem}>
+            <View style={styles.settingLeft}>
+              <MaterialCommunityIcons
+                name={state.isPremium ? "crown" : "lock"}
+                size={24}
+                color={state.isPremium ? AppColors.primary : AppColors.textMuted}
+              />
+              <View style={styles.settingInfo}>
+                <Text style={styles.settingLabel}>
+                  {state.isPremium ? "Premium Active" : "Premium Status"}
+                </Text>
+                <Text style={styles.settingDescription}>
+                  {state.isPremium ? "Full access to leaderboards" : "Not activated"}
+                </Text>
+              </View>
+            </View>
+            {state.isPremium && (
+              <MaterialCommunityIcons
+                name="check-circle"
+                size={24}
+                color={AppColors.primary}
+              />
+            )}
+          </View>
+
+          {!state.isPremium && (
+            <TouchableOpacity
+              style={styles.settingItem}
+              onPress={handleRestorePurchase}
+              activeOpacity={0.7}
+            >
+              <View style={styles.settingLeft}>
+                <MaterialCommunityIcons
+                  name="restore"
+                  size={24}
+                  color={AppColors.primary}
+                />
+                <View style={styles.settingInfo}>
+                  <Text style={styles.settingLabel}>Restore Purchase</Text>
+                  <Text style={styles.settingDescription}>
+                    Recover previous purchase
+                  </Text>
+                </View>
+              </View>
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={24}
+                color={AppColors.textLight}
+              />
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.section}>

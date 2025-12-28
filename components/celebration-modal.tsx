@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppColors } from '@/constants/colors';
-import { Button } from '@/components/button';
 
 interface CelebrationModalProps {
   visible: boolean;
   habitName: string;
   pointsEarned: number;
+  daysCompleted?: number;
   onRestart: () => void;
   onArchive: () => void;
 }
@@ -16,6 +16,7 @@ export function CelebrationModal({
   visible,
   habitName,
   pointsEarned,
+  daysCompleted = 30,
   onRestart,
   onArchive,
 }: CelebrationModalProps) {
@@ -23,22 +24,51 @@ export function CelebrationModal({
     <Modal visible={visible} animationType="fade" transparent>
       <View style={styles.overlay}>
         <View style={styles.modal}>
+          {/* Success Icon */}
           <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="check-circle" size={80} color={AppColors.primary} />
+            <View style={styles.iconCircle}>
+              <MaterialCommunityIcons 
+                name="check" 
+                size={64} 
+                color={AppColors.primary}
+                style={{ fontWeight: '700' }}
+              />
+            </View>
           </View>
 
-          <Text style={styles.title}>Goal achieved!</Text>
-          
-          <View style={styles.pointsContainer}>
-            <Text style={styles.points}>+{pointsEarned} points</Text>
+          {/* Content */}
+          <View style={styles.content}>
+            <Text style={styles.title}>Goal Achieved!</Text>
+            
+            {/* Reward Badge */}
+            <View style={styles.rewardContainer}>
+              <MaterialCommunityIcons name="lightning-bolt" size={18} color={AppColors.primary} />
+              <Text style={styles.rewardText}>+{pointsEarned} Bonus Points</Text>
+            </View>
+
+            {/* Description */}
+            <Text style={styles.description}>
+              You have successfully completed{'\n'}
+              <Text style={styles.habitNameBold}>'{habitName}'</Text> for {daysCompleted} days.
+            </Text>
           </View>
 
-          <Text style={styles.habitName}>{habitName}</Text>
+          {/* Status Chip */}
+          <View style={styles.statusChip}>
+            <MaterialCommunityIcons name="check-circle" size={16} color={AppColors.textMuted} />
+            <Text style={styles.statusText}>COMPLETED</Text>
+          </View>
 
+          {/* Action Buttons */}
           <View style={styles.actions}>
-            <Button title="Restart habit" onPress={onRestart} />
-            <TouchableOpacity style={styles.archiveButton} onPress={onArchive}>
-              <Text style={styles.archiveText}>Archive</Text>
+            <TouchableOpacity style={styles.primaryButton} onPress={onRestart} activeOpacity={0.9}>
+              <MaterialCommunityIcons name="replay" size={20} color={AppColors.backgroundDark} />
+              <Text style={styles.primaryButtonText}>Restart Habit</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.secondaryButton} onPress={onArchive} activeOpacity={0.9}>
+              <MaterialCommunityIcons name="archive" size={20} color={AppColors.textMuted} />
+              <Text style={styles.secondaryButtonText}>Archive Habit</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -50,59 +80,135 @@ export function CelebrationModal({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 24,
+    padding: 16,
   },
   modal: {
-    backgroundColor: AppColors.cardDark,
-    borderRadius: 20,
-    padding: 32,
+    backgroundColor: '#16211a',
+    borderRadius: 24,
+    padding: 24,
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 340,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 20 },
+    shadowOpacity: 0.5,
+    shadowRadius: 40,
+    elevation: 20,
   },
   iconContainer: {
     marginBottom: 24,
   },
+  iconCircle: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    backgroundColor: AppColors.primary + '10',
+    borderWidth: 1,
+    borderColor: AppColors.primary + '20',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: AppColors.primary,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.4,
+    shadowRadius: 30,
+  },
+  content: {
+    width: '100%',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 24,
+  },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
     color: AppColors.white,
-    marginBottom: 16,
+    letterSpacing: -0.5,
   },
-  pointsContainer: {
-    backgroundColor: AppColors.primary + '20',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 24,
-    marginBottom: 16,
+  rewardContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingVertical: 8,
   },
-  points: {
-    fontSize: 32,
+  rewardText: {
+    fontSize: 18,
     fontWeight: '700',
     color: AppColors.primary,
   },
-  habitName: {
-    fontSize: 16,
-    color: AppColors.textLight,
+  description: {
+    fontSize: 14,
+    color: AppColors.textMuted,
     textAlign: 'center',
-    marginBottom: 32,
+    lineHeight: 22,
+    paddingHorizontal: 8,
+  },
+  habitNameBold: {
+    color: AppColors.white,
+    fontWeight: '600',
+  },
+  statusChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    height: 28,
+    paddingHorizontal: 12,
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    marginBottom: 24,
+  },
+  statusText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: AppColors.textLight,
+    letterSpacing: 2,
   },
   actions: {
     width: '100%',
     gap: 12,
   },
-  archiveButton: {
-    height: 48,
+  primaryButton: {
+    width: '100%',
+    height: 56,
+    backgroundColor: AppColors.primary,
+    borderRadius: 12,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 8,
+    shadowColor: AppColors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 8,
   },
-  archiveText: {
+  primaryButtonText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: AppColors.textLight,
+    fontWeight: '700',
+    color: AppColors.backgroundDark,
+  },
+  secondaryButton: {
+    width: '100%',
+    height: 56,
+    backgroundColor: 'transparent',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+  },
+  secondaryButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: AppColors.white,
   },
 });
 

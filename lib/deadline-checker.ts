@@ -25,10 +25,12 @@ export function checkDeadlines(
       const goalMet = habit.currentProgress >= habit.goalValue;
       
       if (goalMet) {
-        // Goal was completed
+        // Goal was completed - calculate points with potential early bonus
+        // Note: completedAt would be when they reached the goal, but we don't track that yet
+        // For now, use the current date for calculation
         const hoursEarly = (deadline.getTime() - currentDate.getTime()) / (1000 * 60 * 60);
-        const bonus = hoursEarly >= 24 ? 5 : 0;
-        const points = 10 + bonus;
+        // If we're past deadline but goal was met, give base points only
+        const points = 10; // Base points for completion
         
         results.push({
           habit: {

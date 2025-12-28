@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { AppState, Habit } from '@/types/habit';
 import { getAppState, saveAppState } from '@/lib/storage';
+import { 
+  calculateGlobalStreak, 
+  recordHabitCompletion, 
+  recordHabitMiss,
+  pruneOldActivity 
+} from '@/lib/streak-calculator';
 
 type AppAction =
   | { type: 'SET_STATE'; payload: AppState }
@@ -11,6 +17,8 @@ type AppAction =
   | { type: 'COMPLETE_HABIT'; payload: { habitId: string; points: number } }
   | { type: 'MISS_HABIT'; payload: { habitId: string; points: number } }
   | { type: 'UPDATE_PENALTY_INTENSITY'; payload: 'light' | 'normal' }
+  | { type: 'UNLOCK_PREMIUM' }
+  | { type: 'UPDATE_LAST_DEADLINE_CHECK'; payload: string }
   | { type: 'RESET_STATE' };
 
 interface AppContextValue {
@@ -23,6 +31,8 @@ interface AppContextValue {
   completeHabit: (habitId: string, points: number) => void;
   missHabit: (habitId: string, points: number) => void;
   updatePenaltyIntensity: (intensity: 'light' | 'normal') => void;
+  unlockPremium: () => void;
+  updateLastDeadlineCheck: (timestamp: string) => void;
   resetState: () => void;
 }
 
@@ -33,6 +43,9 @@ const DEFAULT_APP_STATE: AppState = {
   completedHabitsCount: 0,
   missedHabitsCount: 0,
   penaltyIntensity: 'normal',
+  isPremium: false,
+  dailyActivity: [],
+  lastDeadlineCheck: undefined,
 };
 
 const AppContext = createContext<AppContextValue | undefined>(undefined);
@@ -62,11 +75,52 @@ function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'LOG_PROGRESS': {
       const { habitId, progress } = action.payload;
+      const habit = state.habits.find(h => h.id === habitId);
+      
+      if (!habit) return state;
+      
+      const newProgress = habit.currentProgress + progress;
+      
+      // Check if goal is completed
+      if (newProgress >= habit.goalValue && habit.status === 'active') {
+        // Calculate points with potential early bonus
+        const deadline = new Date(habit.deadline);
+        const now = new Date();
+        const hoursEarly = (deadline.getTime() - now.getTime()) / (1000 * 60 * 60);
+        const bonus = hoursEarly >= 24 ? 5 : 0;
+        const points = 10 + bonus;
+        
+        // Record completion in daily activity
+        const updatedActivity = recordHabitCompletion(state.dailyActivity, habitId, points);
+        const newGlobalStreak = calculateGlobalStreak(updatedActivity);
+        
+        return {
+          ...state,
+          totalPoints: state.totalPoints + points,
+          completedHabitsCount: state.completedHabitsCount + 1,
+          currentStreak: newGlobalStreak,
+          habits: state.habits.map(h =>
+            h.id === habitId
+              ? {
+                  ...h,
+                  currentProgress: newProgress,
+                  status: 'completed' as const,
+                  completedAt: new Date().toISOString(),
+                  pointsEarned: h.pointsEarned + points,
+                  currentStreak: h.currentStreak + 1,
+                }
+              : h
+          ),
+          dailyActivity: pruneOldActivity(updatedActivity),
+        };
+      }
+      
+      // Just update progress
       return {
         ...state,
         habits: state.habits.map(h =>
           h.id === habitId
-            ? { ...h, currentProgress: h.currentProgress + progress }
+            ? { ...h, currentProgress: newProgress }
             : h
         ),
       };
@@ -74,39 +128,62 @@ function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'COMPLETE_HABIT': {
       const { habitId, points } = action.payload;
+      
+      // Record completion in daily activity
+      const updatedActivity = recordHabitCompletion(state.dailyActivity, habitId, points);
+      
+      // Calculate new global streak
+      const newGlobalStreak = calculateGlobalStreak(updatedActivity);
+      
+      // Update habit with incremented streak
+      const updatedHabits = state.habits.map(h =>
+        h.id === habitId
+          ? {
+              ...h,
+              status: 'completed' as const,
+              completedAt: new Date().toISOString(),
+              pointsEarned: h.pointsEarned + points,
+              currentStreak: h.currentStreak + 1,
+            }
+          : h
+      );
+      
       return {
         ...state,
         totalPoints: state.totalPoints + points,
         completedHabitsCount: state.completedHabitsCount + 1,
-        habits: state.habits.map(h =>
-          h.id === habitId
-            ? {
-                ...h,
-                status: 'completed',
-                completedAt: new Date().toISOString(),
-                pointsEarned: h.pointsEarned + points,
-              }
-            : h
-        ),
+        currentStreak: newGlobalStreak,
+        habits: updatedHabits,
+        dailyActivity: pruneOldActivity(updatedActivity),
       };
     }
 
     case 'MISS_HABIT': {
       const { habitId, points } = action.payload;
       const absPoints = Math.abs(points);
+      
+      // Record miss in daily activity
+      const updatedActivity = recordHabitMiss(state.dailyActivity, points);
+      
+      // Calculate new global streak (might be reset)
+      const newGlobalStreak = calculateGlobalStreak(updatedActivity);
+      
       return {
         ...state,
         totalPoints: state.totalPoints + points, // points is negative
         missedHabitsCount: state.missedHabitsCount + 1,
+        currentStreak: newGlobalStreak,
         habits: state.habits.map(h =>
           h.id === habitId
             ? {
                 ...h,
-                status: 'expired',
+                status: 'expired' as const,
                 pointsLost: h.pointsLost + absPoints,
+                currentStreak: 0, // Reset individual habit streak
               }
             : h
         ),
+        dailyActivity: pruneOldActivity(updatedActivity),
       };
     }
 
@@ -114,6 +191,18 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         penaltyIntensity: action.payload,
+      };
+
+    case 'UNLOCK_PREMIUM':
+      return {
+        ...state,
+        isPremium: true,
+      };
+
+    case 'UPDATE_LAST_DEADLINE_CHECK':
+      return {
+        ...state,
+        lastDeadlineCheck: action.payload,
       };
 
     case 'RESET_STATE':
@@ -172,6 +261,14 @@ export function AppProvider({ children }: AppProviderProps) {
     dispatch({ type: 'UPDATE_PENALTY_INTENSITY', payload: intensity });
   };
 
+  const unlockPremium = () => {
+    dispatch({ type: 'UNLOCK_PREMIUM' });
+  };
+
+  const updateLastDeadlineCheck = (timestamp: string) => {
+    dispatch({ type: 'UPDATE_LAST_DEADLINE_CHECK', payload: timestamp });
+  };
+
   const resetState = () => {
     dispatch({ type: 'RESET_STATE' });
   };
@@ -186,6 +283,8 @@ export function AppProvider({ children }: AppProviderProps) {
     completeHabit,
     missHabit,
     updatePenaltyIntensity,
+    unlockPremium,
+    updateLastDeadlineCheck,
     resetState,
   };
 

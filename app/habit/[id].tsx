@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppColors } from '@/constants/colors';
@@ -10,8 +10,9 @@ import { Button } from '@/components/button';
 export default function HabitDetailScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams();
-  const { state, updateHabit } = useApp();
+  const { state, updateHabit, deleteHabit } = useApp();
   const habit = state.habits.find(h => h.id === id);
+  const [showMenu, setShowMenu] = useState(false);
 
   if (!habit) {
     return (
@@ -35,6 +36,40 @@ export default function HabitDetailScreen() {
     });
   };
 
+  const handlePauseResume = () => {
+    const newStatus = habit.status === 'paused' ? 'active' : 'paused';
+    updateHabit({
+      ...habit,
+      status: newStatus,
+    });
+    setShowMenu(false);
+    Alert.alert(
+      newStatus === 'paused' ? 'Habit Paused' : 'Habit Resumed',
+      newStatus === 'paused' 
+        ? 'This habit won\'t count towards your streak until resumed.'
+        : 'This habit is now active again.'
+    );
+  };
+
+  const handleDelete = () => {
+    setShowMenu(false);
+    Alert.alert(
+      'Delete Habit',
+      'Are you sure you want to delete this habit? This action cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            deleteHabit(habit.id);
+            router.back();
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -45,9 +80,40 @@ export default function HabitDetailScreen() {
         >
           <MaterialCommunityIcons name="arrow-left" size={24} color={AppColors.white} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuButton} activeOpacity={0.7}>
+        <TouchableOpacity 
+          style={styles.menuButton} 
+          activeOpacity={0.7}
+          onPress={() => setShowMenu(!showMenu)}
+        >
           <MaterialCommunityIcons name="dots-vertical" size={24} color={AppColors.white} />
         </TouchableOpacity>
+        
+        {showMenu && (
+          <View style={styles.menuDropdown}>
+            <TouchableOpacity 
+              style={styles.menuItem}
+              onPress={handlePauseResume}
+              activeOpacity={0.7}
+            >
+              <MaterialCommunityIcons 
+                name={habit.status === 'paused' ? "play" : "pause"} 
+                size={20} 
+                color={AppColors.white} 
+              />
+              <Text style={styles.menuItemText}>
+                {habit.status === 'paused' ? 'Resume' : 'Pause'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={[styles.menuItem, styles.menuItemDanger]}
+              onPress={handleDelete}
+              activeOpacity={0.7}
+            >
+              <MaterialCommunityIcons name="delete" size={20} color={AppColors.red} />
+              <Text style={[styles.menuItemText, styles.menuItemTextDanger]}>Delete</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -110,9 +176,9 @@ export default function HabitDetailScreen() {
 
         <View style={styles.streakCard}>
           <Text style={styles.streakLabel}>Current Streak</Text>
-          <Text style={styles.streakValue}>4 Days</Text>
+          <Text style={styles.streakValue}>{habit.currentStreak} Day{habit.currentStreak !== 1 ? 's' : ''}</Text>
           <View style={styles.streakBars}>
-            {[1, 2, 3, 4].map((i) => (
+            {Array.from({ length: Math.min(habit.currentStreak, 7) }).map((_, i) => (
               <View key={i} style={styles.streakBar} />
             ))}
           </View>
@@ -126,7 +192,20 @@ export default function HabitDetailScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Button title="+ Log Progress" onPress={handleLogProgress} />
+        {habit.status === 'active' && (
+          <Button title="+ Log Progress" onPress={handleLogProgress} />
+        )}
+        {habit.status === 'paused' && (
+          <Button 
+            title="Resume Habit" 
+            onPress={handlePauseResume}
+          />
+        )}
+        {(habit.status === 'completed' || habit.status === 'expired') && (
+          <Text style={styles.statusMessage}>
+            {habit.status === 'completed' ? '✓ Goal Completed' : '✗ Deadline Missed'}
+          </Text>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -158,6 +237,42 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  menuDropdown: {
+    position: 'absolute',
+    top: 60,
+    right: 16,
+    backgroundColor: AppColors.cardDark,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: AppColors.cardDark + '40',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+    minWidth: 140,
+    zIndex: 1000,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: AppColors.surfaceDark,
+  },
+  menuItemDanger: {
+    borderBottomWidth: 0,
+  },
+  menuItemText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: AppColors.white,
+  },
+  menuItemTextDanger: {
+    color: AppColors.red,
   },
   content: {
     flex: 1,
@@ -341,6 +456,13 @@ const styles = StyleSheet.create({
   footer: {
     padding: 24,
     paddingTop: 16,
+  },
+  statusMessage: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: AppColors.textLight,
+    textAlign: 'center',
+    paddingVertical: 20,
   },
   errorText: {
     fontSize: 18,

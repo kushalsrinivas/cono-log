@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unlock Leaderboard</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee6c",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "surface-dark": "#1c2e22", // Slightly lighter for cards
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "md": "0.375rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto shadow-2xl">
+<!-- Top Navigation -->
+<div class="flex items-center px-6 py-4 justify-between z-10">
+<button class="text-gray-900 dark:text-white flex items-center justify-center p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<button class="flex items-center justify-end">
+<p class="text-gray-500 dark:text-[#9db9a6] text-sm font-bold leading-normal tracking-[0.015em] hover:text-primary transition-colors">Restore</p>
+</button>
+</div>
+<!-- Hero Image -->
+<div class="px-6 pb-2">
+<div class="w-full aspect-[16/9] bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl shadow-lg relative group" data-alt="Abstract glowing neon green trophy icon floating in dark space" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQjm854DHaKTBb6dE5B0Kl4DsQKN3vilBwgWiHQiCmata-4i55sH8n7pIB0sJ-O6AVb86hvOgE0_l6zhsX-oIzEwYIb1hWcCC4kOLbFpC6s0e6vqJIQxfi_BD-hm3s9bpFgHWK6GKSFmonlEV1TDRNjBsM4mWqaZarCkhvzngiE0Mg7SZFKTkAEncBi3gFAq7PGn7s7n3fJPL3nvb7pBxuXFBhQ4mpAFwinhLd33eUx9tzmsQLmx2W1b9omEjWM1nEFxcRLlmsWCot");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent opacity-80"></div>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+</div>
+</div>
+<!-- Headline & Body -->
+<div class="flex flex-col items-center text-center px-6 pt-4 pb-2">
+<h1 class="text-gray-900 dark:text-white tracking-tight text-3xl font-extrabold leading-tight mb-2">Join the Elite</h1>
+<p class="text-gray-600 dark:text-[#9db9a6] text-base font-normal leading-relaxed max-w-[32ch]">
+                Prove your consistency. Compare your scores with friends and the world.
+            </p>
+</div>
+<!-- Feature List (Modified FeatureSection for vertical scanning) -->
+<div class="flex flex-col gap-3 px-6 py-6">
+<!-- Feature 1 -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-light dark:bg-surface-dark/50 border border-gray-200 dark:border-white/5">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">public</span>
+</div>
+<div class="flex flex-col text-left">
+<h2 class="text-gray-900 dark:text-white text-sm font-bold">Global Rankings</h2>
+<p class="text-gray-500 dark:text-[#9db9a6] text-xs">Compare with the world</p>
+</div>
+<div class="ml-auto text-primary">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-light dark:bg-surface-dark/50 border border-gray-200 dark:border-white/5">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+<div class="flex flex-col text-left">
+<h2 class="text-gray-900 dark:text-white text-sm font-bold">Friend Leagues</h2>
+<p class="text-gray-500 dark:text-[#9db9a6] text-xs">Compete with friends</p>
+</div>
+<div class="ml-auto text-primary">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-light dark:bg-surface-dark/50 border border-gray-200 dark:border-white/5">
+<div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">monitoring</span>
+</div>
+<div class="flex flex-col text-left">
+<h2 class="text-gray-900 dark:text-white text-sm font-bold">Historical Stats</h2>
+<p class="text-gray-500 dark:text-[#9db9a6] text-xs">Detailed point history</p>
+</div>
+<div class="ml-auto text-primary">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+</div>
+</div>
+<!-- Pricing Selection -->
+<div class="mt-auto flex flex-col gap-4 px-6 pb-6">
+<!-- Selection Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Annual Option -->
+<div class="relative cursor-pointer group">
+<input class="peer sr-only" id="annual" name="pricing" type="radio"/>
+<label class="flex flex-col h-full rounded-xl border-2 border-gray-200 dark:border-white/10 bg-surface-light dark:bg-surface-dark p-4 transition-all hover:border-gray-300 dark:hover:border-white/20 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/5" for="annual">
+<span class="text-xs font-medium text-gray-500 dark:text-[#9db9a6] mb-1">Annual</span>
+<div class="mt-auto">
+<span class="block text-xl font-bold text-gray-900 dark:text-white">$9.99</span>
+<span class="text-[10px] text-gray-400 dark:text-gray-500">per year</span>
+</div>
+</label>
+</div>
+<!-- Lifetime Option (Recommended) -->
+<div class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" id="lifetime" name="pricing" type="radio"/>
+<!-- Badge -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-black text-[10px] font-bold px-3 py-1 rounded-full shadow-lg z-10 whitespace-nowrap uppercase tracking-wider">
+                        Best Value
+                    </div>
+<label class="flex flex-col h-full rounded-xl border-2 border-gray-200 dark:border-white/10 bg-surface-light dark:bg-surface-dark p-4 transition-all hover:border-gray-300 dark:hover:border-white/20 peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/5 shadow-sm" for="lifetime">
+<span class="text-xs font-medium text-gray-500 dark:text-[#9db9a6] mb-1">Lifetime</span>
+<div class="mt-auto">
+<span class="block text-xl font-bold text-gray-900 dark:text-white">$19.99</span>
+<span class="text-[10px] text-gray-400 dark:text-gray-500">one-time</span>
+</div>
+</label>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="w-full rounded-lg bg-primary py-4 px-6 text-center text-base font-bold text-black shadow-[0_0_15px_rgba(43,238,108,0.3)] hover:shadow-[0_0_25px_rgba(43,238,108,0.5)] hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 mt-2">
+                Get Access
+            </button>
+<!-- Legal Footer -->
+<div class="flex justify-center gap-4 text-[10px] text-gray-400 dark:text-gray-600">
+<a class="hover:text-gray-600 dark:hover:text-gray-400 underline" href="#">Terms of Service</a>
+<span>•</span>
+<a class="hover:text-gray-600 dark:hover:text-gray-400 underline" href="#">Privacy Policy</a>
+</div>
+</div>
+</div>
+</body></html>

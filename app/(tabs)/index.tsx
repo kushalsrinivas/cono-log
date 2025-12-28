@@ -13,6 +13,7 @@ export default function HomeScreen() {
   const hasHabits = state.habits.length > 0;
   const activeHabits = state.habits.filter(h => h.status === 'active');
   const completedHabits = state.habits.filter(h => h.status === 'completed');
+  const pausedHabits = state.habits.filter(h => h.status === 'paused');
 
   if (!hasHabits) {
     return (
@@ -110,6 +111,23 @@ export default function HomeScreen() {
               <View style={styles.completedInfo}>
                 <Text style={styles.completedTitle}>{habit.name}</Text>
                 <Text style={styles.completedPoints}>+{habit.pointsEarned} pts earned</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+
+          {pausedHabits.map(habit => (
+            <TouchableOpacity
+              key={habit.id}
+              style={styles.pausedHabitCard}
+              onPress={() => router.push(`/habit/${habit.id}`)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.pausedIconContainer}>
+                <MaterialCommunityIcons name="pause-circle" size={32} color={AppColors.textMuted} />
+              </View>
+              <View style={styles.pausedInfo}>
+                <Text style={styles.pausedTitle}>{habit.name}</Text>
+                <Text style={styles.pausedSubtitle}>Paused</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -329,6 +347,40 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: AppColors.primary,
+  },
+  pausedHabitCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: AppColors.cardDark + '20',
+    borderRadius: 12,
+    padding: 16,
+    gap: 12,
+    opacity: 0.5,
+    borderWidth: 1,
+    borderColor: AppColors.textMuted + '20',
+    borderStyle: 'dashed',
+  },
+  pausedIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: AppColors.textMuted + '10',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pausedInfo: {
+    flex: 1,
+  },
+  pausedTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: AppColors.textMuted,
+    marginBottom: 2,
+  },
+  pausedSubtitle: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: AppColors.textMuted,
   },
   spacer: {
     height: 100,
