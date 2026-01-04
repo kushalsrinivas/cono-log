@@ -20,8 +20,6 @@ export function PenaltyModal({
   onArchive,
   onClose,
 }: PenaltyModalProps) {
-  const bluePrimary = '#197fe6';
-  
   return (
     <Modal visible={visible} animationType="fade" transparent={false}>
       <SafeAreaView style={styles.container}>
@@ -46,7 +44,7 @@ export function PenaltyModal({
               <MaterialCommunityIcons 
                 name="timer-sand" 
                 size={48} 
-                color={bluePrimary}
+                color={AppColors.orange}
               />
             </View>
           </View>
@@ -78,11 +76,11 @@ export function PenaltyModal({
         {/* Footer Actions */}
         <View style={styles.footer}>
           <TouchableOpacity 
-            style={[styles.primaryButton, { backgroundColor: bluePrimary }]} 
+            style={styles.primaryButton} 
             onPress={onTryAgain}
             activeOpacity={0.9}
           >
-            <MaterialCommunityIcons name="restart" size={20} color={AppColors.white} />
+            <MaterialCommunityIcons name="restart" size={20} color={AppColors.backgroundDark} />
             <Text style={styles.primaryButtonText}>Restart with new deadline</Text>
           </TouchableOpacity>
 
@@ -139,8 +137,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#197fe6',
-    opacity: 0.1,
+    backgroundColor: AppColors.orange,
+    opacity: 0.15,
   },
   iconCircle: {
     width: 96,
@@ -235,16 +233,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    shadowColor: '#197fe6',
+    backgroundColor: AppColors.primary,
+    shadowColor: AppColors.primary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 12,
     elevation: 8,
   },
   primaryButtonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: AppColors.white,
+    color: AppColors.backgroundDark,
     letterSpacing: 0.3,
   },
   secondaryButton: {

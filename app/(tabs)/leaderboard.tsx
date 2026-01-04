@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppColors } from '@/constants/colors';
 import { useApp } from '@/contexts/app-context';
@@ -29,9 +30,12 @@ export default function LeaderboardScreen() {
   if (!isPremium) {
     // Locked Preview State
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Leaderboard</Text>
+          <View style={styles.comingSoonBadge}>
+            <Text style={styles.comingSoonText}>COMING SOON</Text>
+          </View>
         </View>
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -116,7 +120,7 @@ export default function LeaderboardScreen() {
 
   // Premium User - Full Leaderboard
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Leaderboard</Text>
       </View>
@@ -234,12 +238,27 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255,255,255,0.05)',
+    alignItems: 'center',
+    gap: 12,
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: '700',
     color: AppColors.white,
-    textAlign: 'center',
+  },
+  comingSoonBadge: {
+    backgroundColor: AppColors.primary + '20',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: AppColors.primary + '40',
+  },
+  comingSoonText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: AppColors.primary,
+    letterSpacing: 1.2,
   },
   scrollContent: {
     padding: 24,

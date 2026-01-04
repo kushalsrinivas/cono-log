@@ -1,37 +1,52 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AppColors } from '@/constants/colors';
-import { useApp } from '@/contexts/app-context';
-import { HabitCard } from '@/components/habit-card';
-import { Button } from '@/components/button';
+import { Button } from "@/components/button";
+import { HabitCard } from "@/components/habit-card";
+import { AppColors } from "@/constants/colors";
+import { useApp } from "@/contexts/app-context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const router = useRouter();
   const { state } = useApp();
   const hasHabits = state.habits.length > 0;
-  const activeHabits = state.habits.filter(h => h.status === 'active');
-  const completedHabits = state.habits.filter(h => h.status === 'completed');
-  const pausedHabits = state.habits.filter(h => h.status === 'paused');
+  const activeHabits = state.habits.filter((h) => h.status === "active");
+  const completedHabits = state.habits.filter((h) => h.status === "completed");
+  const pausedHabits = state.habits.filter((h) => h.status === "paused");
 
   if (!hasHabits) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
         <View style={styles.emptyStateContainer}>
           <Text style={styles.emptyHeader}>Today</Text>
-          
+
           <View style={styles.pointsCard}>
             <Text style={styles.pointsNumber}>0</Text>
             <View style={styles.pointsLabel}>
-              <MaterialCommunityIcons name="star" size={16} color={AppColors.primary} />
+              <MaterialCommunityIcons
+                name="star"
+                size={16}
+                color={AppColors.primary}
+              />
               <Text style={styles.pointsText}>POINTS</Text>
             </View>
           </View>
 
           <View style={styles.illustrationContainer}>
             <View style={styles.neonCircle}>
-              <MaterialCommunityIcons name="sprout" size={80} color={AppColors.primary} />
+              <MaterialCommunityIcons
+                name="sprout"
+                size={80}
+                color={AppColors.primary}
+              />
             </View>
           </View>
 
@@ -42,7 +57,7 @@ export default function HomeScreen() {
 
           <Button
             title="+ Create your first habit"
-            onPress={() => router.push('/create-habit/step1')}
+            onPress={() => router.push("/create-habit/step1")}
           />
         </View>
       </SafeAreaView>
@@ -50,24 +65,37 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>My Active Habits</Text>
         <TouchableOpacity
           style={styles.settingsButton}
-          onPress={() => router.push('/settings')}
+          onPress={() => router.push("/settings")}
           activeOpacity={0.7}
         >
-          <MaterialCommunityIcons name="cog" size={24} color={AppColors.white} />
+          <MaterialCommunityIcons
+            name="cog"
+            size={24}
+            color={AppColors.white}
+          />
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
-            <Text style={styles.statNumber}>{state.totalPoints.toLocaleString()}</Text>
+            <Text style={styles.statNumber}>
+              {state.totalPoints.toLocaleString()}
+            </Text>
             <View style={styles.statLabel}>
-              <MaterialCommunityIcons name="star" size={18} color={AppColors.primary} />
+              <MaterialCommunityIcons
+                name="star"
+                size={18}
+                color={AppColors.primary}
+              />
               <Text style={styles.statText}>TOTAL PTS</Text>
             </View>
           </View>
@@ -78,19 +106,25 @@ export default function HomeScreen() {
               <Text style={styles.streakDays}>days</Text>
             </View>
             <View style={styles.statLabel}>
-              <MaterialCommunityIcons name="fire" size={18} color={AppColors.orange} />
+              <MaterialCommunityIcons
+                name="fire"
+                size={18}
+                color={AppColors.orange}
+              />
               <Text style={styles.statText}>STREAK</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>TODAY'S TARGETS</Text>
-          <Text style={styles.sectionCount}>{activeHabits.length} Remaining</Text>
+          <Text style={styles.sectionTitle}>TODAY&apos;S TARGETS</Text>
+          <Text style={styles.sectionCount}>
+            {activeHabits.length} Remaining
+          </Text>
         </View>
 
         <View style={styles.habitsContainer}>
-          {activeHabits.map(habit => (
+          {activeHabits.map((habit) => (
             <HabitCard
               key={habit.id}
               habit={habit}
@@ -98,7 +132,7 @@ export default function HomeScreen() {
             />
           ))}
 
-          {completedHabits.map(habit => (
+          {completedHabits.map((habit) => (
             <TouchableOpacity
               key={habit.id}
               style={styles.completedHabitCard}
@@ -106,16 +140,22 @@ export default function HomeScreen() {
               activeOpacity={0.7}
             >
               <View style={styles.completedIconContainer}>
-                <MaterialCommunityIcons name="check-circle" size={32} color={AppColors.primary} />
+                <MaterialCommunityIcons
+                  name="check-circle"
+                  size={32}
+                  color={AppColors.primary}
+                />
               </View>
               <View style={styles.completedInfo}>
                 <Text style={styles.completedTitle}>{habit.name}</Text>
-                <Text style={styles.completedPoints}>+{habit.pointsEarned} pts earned</Text>
+                <Text style={styles.completedPoints}>
+                  +{habit.pointsEarned} pts earned
+                </Text>
               </View>
             </TouchableOpacity>
           ))}
 
-          {pausedHabits.map(habit => (
+          {pausedHabits.map((habit) => (
             <TouchableOpacity
               key={habit.id}
               style={styles.pausedHabitCard}
@@ -123,7 +163,11 @@ export default function HomeScreen() {
               activeOpacity={0.7}
             >
               <View style={styles.pausedIconContainer}>
-                <MaterialCommunityIcons name="pause-circle" size={32} color={AppColors.textMuted} />
+                <MaterialCommunityIcons
+                  name="pause-circle"
+                  size={32}
+                  color={AppColors.textMuted}
+                />
               </View>
               <View style={styles.pausedInfo}>
                 <Text style={styles.pausedTitle}>{habit.name}</Text>
@@ -138,10 +182,14 @@ export default function HomeScreen() {
 
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => router.push('/create-habit/step1')}
+        onPress={() => router.push("/create-habit/step1")}
         activeOpacity={0.8}
       >
-        <MaterialCommunityIcons name="plus" size={32} color={AppColors.backgroundDark} />
+        <MaterialCommunityIcons
+          name="plus"
+          size={32}
+          color={AppColors.backgroundDark}
+        />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -154,13 +202,13 @@ const styles = StyleSheet.create({
   },
   emptyStateContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 24,
   },
   emptyHeader: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.white,
     marginBottom: 32,
   },
@@ -168,29 +216,29 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.cardDark,
     borderRadius: 12,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 48,
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
     borderColor: AppColors.cardDark,
   },
   pointsNumber: {
     fontSize: 64,
-    fontWeight: '900',
+    fontWeight: "900",
     color: AppColors.white,
     letterSpacing: -2,
   },
   pointsLabel: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginTop: 8,
   },
   pointsText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.textLight,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 1.5,
   },
   illustrationContainer: {
@@ -201,8 +249,8 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: 90,
     backgroundColor: AppColors.backgroundDark,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     shadowColor: AppColors.primary,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
@@ -211,21 +259,21 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.white,
     marginBottom: 12,
   },
   emptySubtitle: {
     fontSize: 16,
     color: AppColors.textLight,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 32,
     lineHeight: 24,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -233,7 +281,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.white,
     letterSpacing: -0.5,
   },
@@ -241,14 +289,14 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   scrollView: {
     flex: 1,
   },
   statsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
     paddingHorizontal: 16,
     paddingTop: 24,
@@ -259,56 +307,56 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.cardDark,
     borderRadius: 12,
     padding: 16,
-    alignItems: 'center',
+    alignItems: "center",
     gap: 8,
     borderWidth: 1,
-    borderColor: AppColors.cardDark + '40',
+    borderColor: AppColors.cardDark + "40",
   },
   statNumber: {
     fontSize: 32,
-    fontWeight: '900',
+    fontWeight: "900",
     color: AppColors.white,
     letterSpacing: -1,
   },
   streakRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    flexDirection: "row",
+    alignItems: "baseline",
     gap: 4,
   },
   streakDays: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.textLight,
   },
   statLabel: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
   },
   statText: {
     fontSize: 10,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.textLight,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 1.5,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 16,
   },
   sectionTitle: {
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.textLight,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 1.5,
   },
   sectionCount: {
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     color: AppColors.primary,
   },
   habitsContainer: {
@@ -316,9 +364,9 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   completedHabitCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: AppColors.cardDark + '40',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: AppColors.cardDark + "40",
     borderRadius: 12,
     padding: 16,
     gap: 12,
@@ -328,73 +376,73 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: AppColors.primary + '20',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: AppColors.primary + "20",
+    justifyContent: "center",
+    alignItems: "center",
   },
   completedInfo: {
     flex: 1,
   },
   completedTitle: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.white,
-    textDecorationLine: 'line-through',
-    textDecorationColor: AppColors.primary + '80',
+    textDecorationLine: "line-through",
+    textDecorationColor: AppColors.primary + "80",
     marginBottom: 2,
   },
   completedPoints: {
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.primary,
   },
   pausedHabitCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: AppColors.cardDark + '20',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: AppColors.cardDark + "20",
     borderRadius: 12,
     padding: 16,
     gap: 12,
     opacity: 0.5,
     borderWidth: 1,
-    borderColor: AppColors.textMuted + '20',
-    borderStyle: 'dashed',
+    borderColor: AppColors.textMuted + "20",
+    borderStyle: "dashed",
   },
   pausedIconContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: AppColors.textMuted + '10',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: AppColors.textMuted + "10",
+    justifyContent: "center",
+    alignItems: "center",
   },
   pausedInfo: {
     flex: 1,
   },
   pausedTitle: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     color: AppColors.textMuted,
     marginBottom: 2,
   },
   pausedSubtitle: {
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: "600",
     color: AppColors.textMuted,
   },
   spacer: {
     height: 100,
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 24,
     right: 24,
     width: 56,
     height: 56,
     borderRadius: 28,
     backgroundColor: AppColors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     shadowColor: AppColors.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
